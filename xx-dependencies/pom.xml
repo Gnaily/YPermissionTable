@@ -22,7 +22,7 @@
         <!--External dependencies-->
 
         <!--Test dependencies-->
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
 
     </properties>
 
