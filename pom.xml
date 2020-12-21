@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>[00]project-root</name>
+    <groupId>org.template</groupId>
+    <artifactId>xx-project</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <description>
+        This project is for ...
+    </description>
+
+    <!-- project modules -->
+    <modules>
+
+        <module>xx-bom</module>
+        <module>xx-dependencies</module>
+        <module>xx-parent</module>
+
+
+        <module>xx-y</module>
+        <module>xx-z</module>
+
+    </modules>
+
+
+    <!-- project settings -->
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+        <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <maven.compiler.optimize>false</maven.compiler.optimize>
+    </properties>
+
+
+    <scm>
+        <connection>scm:git:https://github.com/Gnaily/Template-maven-multi-module</connection>
+        <developerConnection>scm:git:git@github.com:Gnaily/Template-maven-multi-module.git</developerConnection>
+        <url>https://github.com/dropwizard/dropwizard</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- distribute to custom maven repository
+    <distributionManagement>
+
+        <repository>
+            <id>releases</id>
+            <name>Release Repository of Spring Boot Parent</name>
+            <url>http://localhost:8081/repository/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshot Repository of Spring Boot Parent</name>
+            <url>http://localhost:8081/repository/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+     -->
+    <repositories>
+
+        <!-- download from custom  maven repository
+        <repository>
+            <id>nexus</id>
+            <url>http://localhost:8081/repository/maven-public/</url>
+        </repository>
+        -->
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <failOnWarning>true</failOnWarning>
+                            <ignoreNonCompile>true</ignoreNonCompile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <preparationGoals>clean test</preparationGoals>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
